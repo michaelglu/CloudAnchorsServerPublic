@@ -1,6 +1,6 @@
 const { Anchor } = require("./../../models/anchor.js");
 const { CoordinateSystem } = require("./../../models/coordinate-system.js");
-const { triangulate, addVectors } = require("./../../config/triangulation.js");
+const { positionUser } = require("./../../config/positioningAlg.js");
 const getAnchorsInSystem = body => {
   return new Promise((resolve, reject) => {
     CoordinateSystem.findOne({ csID: body.csID }).then(
@@ -11,7 +11,7 @@ const getAnchorsInSystem = body => {
           Anchor.find({ systemID: system.csID }).then(
             anchors => {
               console.log(anchors);
-              triangulate(
+              positionUser(
                 system,
                 body.point1,
                 body.point2,
